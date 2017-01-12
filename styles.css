@@ -1,15 +1,63 @@
-#fruitTable {
-  width: 100%;
-  border: 1px solid black;
 
-}
 td, th {
   border: 1px solid black;
-  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+
 }
 
 img {
   height: auto;
-  width: 200px;
-  padding: 10px;
+  width: 125px;
+  /*padding: 5px;*/
+}
+
+body {
+  background-color: linen;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+th {
+  font-size: 1.5em;
+}
+
+button {
+  width: 80%;
+  font-size: 1.25em;
+  border-radius: 10px;
+}
+
+h1 {
+  font-family: 'Righteous', Arial, sans-serif;
+  font-size: 2.5em;
+  letter-spacing: 1px;
+  color: seagreen;
+}
+
+#buyButtons button {
+  background-color: blanchedalmond;
+}
+
+#sellButtons button {
+  background-color: salmon;
+}
+#fruitTable {
+  margin: auto;
+  width: 80%;
+  border: 1px solid black;
+  border-radius: 10px;
+
+}
+#messageLine {
+  min-height: 2em;
+}
+#messages {
+
+  font-size: 2em;
+}
+
+.badSell {
+  background: red;
 }

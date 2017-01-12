@@ -1,5 +1,6 @@
 //Global Variables
 var totalCash = 100;
+var gameOver = false;
 
 //Fruit Constructor
 function Fruit(name, currentPrice){
@@ -22,9 +23,8 @@ var fruitArray = [apple, orange, banana, grape];
 //When Document Loads
 $(function () {
   //Changes the current price every 15 seconds
-  setTimeout(endGame, 20000);
+  setTimeout(endGame, 300000);
   setInterval(changePriceAll, 15000);
-
 
 // buy one share of a fruit
   $('#buyButtons').on('click','button', function () {
@@ -35,29 +35,51 @@ $(function () {
         buyOne(fruitArray[i])
       }
     }
+    if(totalCash > 100){
+      $('h2').css('color', 'green');
+    }else if (totalCash < 100){
+      $('h2').css('color', 'red');
+    }else{
+      $('h2').css('color', 'black');
+    }
   });
 
   // sell one share of a fruit
     $('#sellButtons').on('click','button', function () {
       var fruitToBeSold = $(this).closest('td').attr('class');
-      console.log(fruitToBeSold);
+      // console.log(fruitToBeSold);
       for(var i =0; i < fruitArray.length; i++){
         if(fruitToBeSold == fruitArray[i].name){
           sellOne(fruitArray[i])
         }
       }
+      if(totalCash > 100){
+        $('h2').css('color', 'green');
+      }else if (totalCash < 100){
+        $('h2').css('color', 'red');
+      }else{
+        $('h2').css('color', 'black');
+      }
     });
 
 
+    // //listener for totalCash above or below 100
+    // $('button').on('click', function() {
+    //   console.log(totalCash);
+    //
+    //
+    // });
 
 
 });
 
 //Runs changePriceOne on each object in the fruitArray
 function changePriceAll() {
-  for (var i =0; i < 4; i++){
-  changePriceOne(fruitArray[i]);
-  currentPriceUpdate(fruitArray[i]);
+  if(!gameOver){
+    for (var i =0; i < 4; i++){
+      changePriceOne(fruitArray[i]);
+      currentPriceUpdate(fruitArray[i]);
+    }
   }
 }
 
@@ -75,7 +97,7 @@ function changePriceOne(fruit){
 //Returns a random value between -0.50 and 0.50
 function priceFluc() {
   var fluc = 0;
-  while (fluc === 0){
+  while (fluc.toFixed(2) == 0){
     fluc = (Math.random()-0.50);
   }
   return fluc;
@@ -92,7 +114,9 @@ function buyOne(fruit){
   $('#totalCash').text(totalCash.toFixed(2));
   $('#avgBuyPrices').find('.'+fruit.name).text("Average Buy Price: $ " + (fruit.totalSpent/fruit.totalBought).toFixed(2));
   } else {
-  $('#messages').text("You don't have enough money");
+  $('#messages').fadeIn(0);
+  $('#messages').text("You don't have enough money").fadeOut(1500);
+  // $('#messages').text().fadeOut(2000);
 
   }
 }
@@ -105,14 +129,19 @@ function sellOne(fruit){
   $('#inventory').find('.'+fruit.name).text("Total Owned: " + fruit.inv);
   $('#totalCash').text(totalCash.toFixed(2));
   } else {
+    $('#messages').fadeIn(0);
     $('#messages').text("You don't have enough " + fruit.name + "s");//Update Messages Dom placeholder (You don't have enough 'Fruit')
+    $('#messages').fadeOut(1500);
+    $('#inventory').find('.'+fruit.name).toggleClass('badSell');
+    // $('#inventory').find('.'+fruit.name).delay(1000).toggleClass('badSell');
 
+    // setTimeout(($('#inventory').find('.'+fruit.name).toggleClass('badSell')), 500);
   }
 }
 
 function currentPriceUpdate (fruit){
   var nameFruit = fruit.name;
-  console.log(fruit);
+  // console.log(fruit);
   $('#currentPrices').find('.' + nameFruit).text("Current Price: $ " + (fruit.currentPrice).toFixed(2));
 }
 
@@ -123,9 +152,12 @@ function endGame () {
     }
   });
   if(totalCash > 100){
+    $('#messages').fadeIn(0);
     $('#messages').text("Congratulations you made a profit of: $ " + (totalCash-100).toFixed(2));
   } else {
+    $('#messages').fadeIn(0);
     $('#messages').text("I'm sorry, you lost: $ " + (100-totalCash).toFixed(2) + ". Don't be a fruit trader");
   }
   $('button').closest('tr').remove();
+  gameOver = true;
 }
