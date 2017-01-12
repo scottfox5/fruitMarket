@@ -1,0 +1,9 @@
+#fruitTable {
+  width: 100%;
+  border: 1px solid black;
+
+}
+td, th {
+  border: 1px solid black;
+  text-align: center;
+}
