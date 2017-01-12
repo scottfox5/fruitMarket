@@ -27,7 +27,8 @@ $(function () {
 
 
   //Changes the current price every 15 seconds
-  setInterval(changePriceAll(), 15000);
+  //CHANGE LATER
+  setInterval(changePriceAll(), 1500);
 
 
 // buy one share of a fruit
@@ -47,7 +48,7 @@ $(function () {
       console.log(fruitToBeSold);
       for(var i =0; i < fruitArray.length; i++){
         if(fruitToBeSold == fruitArray[i].name){
-          buyOne(fruitArray[i])
+          sellOne(fruitArray[i])
         }
       }
     });
@@ -59,8 +60,10 @@ $(function () {
 
 //Runs changePriceOne on each object in the fruitArray
 function changePriceAll() {
-  for (var i =0; i < 4; i++)
+  for (var i =0; i < 4; i++){
   changePriceOne(fruitArray[i]);
+  currentPriceUpdate(fruitArray[i]);
+  }
 }
 
 //Calls priceFluc and adds the value returned to the current price of the inputted fruit object
@@ -85,16 +88,35 @@ function priceFluc() {
 
 //Adds one fruit to the inventory, while deducting the cost from totalCash. Also adds to totalPurchased and totalSpent
 function buyOne(fruit){
+  if(totalCash >= fruit.currentPrice){
   totalCash -= fruit.currentPrice;
   fruit.inv++;
   fruit.totalBought++;
   fruit.totalSpent += fruit.currentPrice;
-  //Update Dom Placeholder
+  $('#inventory').find('.'+fruit.name).text(fruit.inv);
+  $('#totalCash').text(totalCash.toFixed(2));
+  $('#avgBuyPrices').find('.'+fruit.name).text("$ " + (fruit.totalSpent/fruit.totalBought).toFixed(2));
+  } else {
+  $('#messages').text("You don't have enough money");
+
+  }
 }
 
 //Deducts one fruit from the inventory, whild adding the current price to totalCash
 function sellOne(fruit){
+  if (fruit.inv > 0){
   totalCash += fruit.currentPrice;
   fruit.inv--;
-  //Update dom placeholder
+  $('#inventory').find('.'+fruit.name).text(fruit.inv);
+  $('#totalCash').text(totalCash.toFixed(2));
+  } else {
+    $('#messages').text("You don't have enough " + fruit.name + "s");//Update Messages Dom placeholder (You don't have enough 'Fruit')
+
+  }
+}
+
+function currentPriceUpdate (fruit){
+  var nameFruit = fruit.name;
+  console.log(fruit);
+  $('#currentPrices').find('.' + nameFruit).text(fruit.currentPrice);
 }
