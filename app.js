@@ -39,11 +39,11 @@ $(function () {
       }
     }
     if(totalCash > 100){
-      $('h2').css('color', 'green');
+      $('#totalCash').css('color', 'green');
     }else if (totalCash < 100){
-      $('h2').css('color', 'red');
+      $('#totalCash').css('color', 'red');
     }else{
-      $('h2').css('color', 'black');
+      $('#totalCash').css('color', 'black');
     }
 
   });
@@ -59,11 +59,11 @@ $(function () {
         }
       }
       if(totalCash > 100){
-        $('h2').css('color', 'green');
+        $('#totalCash').css('color', 'green');
       }else if (totalCash < 100){
-        $('h2').css('color', 'red');
+        $('#totalCash').css('color', 'red');
       }else{
-        $('h2').css('color', 'black');
+        $('#totalCash').css('color', 'black');
       }
 
     });
@@ -169,9 +169,11 @@ function endGame () {
 }
 
 function updateTimer(){
-  timer--;
-  $('#timeLeft').text(timer);
-  if(timer < 30){
-    $('#timeLeft').css('color','red').css('font-size', '1.5em');
+  if(!gameOver){
+    timer--;
+    $('#timeLeft').text(timer);
+    if(timer < 30){
+      $('#timeLeft').css('color','red').css('font-size', '1.5em');
+    }
   }
 }
