@@ -118,5 +118,5 @@ function sellOne(fruit){
 function currentPriceUpdate (fruit){
   var nameFruit = fruit.name;
   console.log(fruit);
-  $('#currentPrices').find('.' + nameFruit).text(fruit.currentPrice);
+  $('#currentPrices').find('.' + nameFruit).text("$ " + fruit.currentPrice);
 }
