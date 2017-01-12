@@ -9,7 +9,7 @@ td, th {
 }
 
 img {
-  height: 200px;
+  height: auto;
   width: 200px;
-  padding: 15px;
+  padding: 10px;
 }
