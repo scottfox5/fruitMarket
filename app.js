@@ -1,8 +1,6 @@
 //Global Variables
 var totalCash = 100;
 
-
-
 //Fruit Constructor
 function Fruit(name, currentPrice){
   this.name = name;
@@ -12,7 +10,6 @@ function Fruit(name, currentPrice){
   this.totalSpent = 0;
 }
 
-
 //Fruit Array
 var apple = new Fruit ('apple', 1);
 var orange = new Fruit ('orange', 2);
@@ -20,21 +17,19 @@ var banana = new Fruit ('banana', 3);
 var grape = new Fruit ('grape', 4);
 
 var fruitArray = [apple, orange, banana, grape];
-console.log(fruitArray);
+// console.log(fruitArray);
 
 //When Document Loads
 $(function () {
-
-
   //Changes the current price every 15 seconds
-
+  setTimeout(endGame, 20000);
   setInterval(changePriceAll, 15000);
 
 
 // buy one share of a fruit
   $('#buyButtons').on('click','button', function () {
     var fruitToBeBought = $(this).closest('td').attr('class');
-    console.log(fruitToBeBought);
+    // console.log(fruitToBeBought);
     for(var i =0; i < fruitArray.length; i++){
       if(fruitToBeBought == fruitArray[i].name){
         buyOne(fruitArray[i])
@@ -93,9 +88,9 @@ function buyOne(fruit){
   fruit.inv++;
   fruit.totalBought++;
   fruit.totalSpent += fruit.currentPrice;
-  $('#inventory').find('.'+fruit.name).text(fruit.inv);
+  $('#inventory').find('.'+fruit.name).text("Total Owned: " + fruit.inv);
   $('#totalCash').text(totalCash.toFixed(2));
-  $('#avgBuyPrices').find('.'+fruit.name).text("$ " + (fruit.totalSpent/fruit.totalBought).toFixed(2));
+  $('#avgBuyPrices').find('.'+fruit.name).text("Average Buy Price: $ " + (fruit.totalSpent/fruit.totalBought).toFixed(2));
   } else {
   $('#messages').text("You don't have enough money");
 
@@ -107,7 +102,7 @@ function sellOne(fruit){
   if (fruit.inv > 0){
   totalCash += fruit.currentPrice;
   fruit.inv--;
-  $('#inventory').find('.'+fruit.name).text(fruit.inv);
+  $('#inventory').find('.'+fruit.name).text("Total Owned: " + fruit.inv);
   $('#totalCash').text(totalCash.toFixed(2));
   } else {
     $('#messages').text("You don't have enough " + fruit.name + "s");//Update Messages Dom placeholder (You don't have enough 'Fruit')
@@ -118,5 +113,19 @@ function sellOne(fruit){
 function currentPriceUpdate (fruit){
   var nameFruit = fruit.name;
   console.log(fruit);
-  $('#currentPrices').find('.' + nameFruit).text("$ " + (fruit.currentPrice).toFixed(2));
+  $('#currentPrices').find('.' + nameFruit).text("Current Price: $ " + (fruit.currentPrice).toFixed(2));
+}
+
+function endGame () {
+  fruitArray.forEach(function(fruit) {
+    while(fruit.inv > 0){
+      sellOne(fruit);
+    }
+  });
+  if(totalCash > 100){
+    $('#messages').text("Congratulations you made a profit of: $ " + (totalCash-100).toFixed(2));
+  } else {
+    $('#messages').text("I'm sorry, you lost: $ " + (100-totalCash).toFixed(2) + ". Don't be a fruit trader");
+  }
+  $('button').closest('tr').remove();
 }
