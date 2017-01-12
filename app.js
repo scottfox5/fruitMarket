@@ -27,8 +27,8 @@ $(function () {
 
 
   //Changes the current price every 15 seconds
-  //CHANGE LATER
-  setInterval(changePriceAll(), 1500);
+
+  setInterval(changePriceAll, 15000);
 
 
 // buy one share of a fruit
@@ -83,7 +83,7 @@ function priceFluc() {
   while (fluc === 0){
     fluc = (Math.random()-0.50);
   }
-  return Number(fluc.toFixed(2));
+  return fluc;
 }
 
 //Adds one fruit to the inventory, while deducting the cost from totalCash. Also adds to totalPurchased and totalSpent
@@ -118,5 +118,5 @@ function sellOne(fruit){
 function currentPriceUpdate (fruit){
   var nameFruit = fruit.name;
   console.log(fruit);
-  $('#currentPrices').find('.' + nameFruit).text("$ " + fruit.currentPrice);
+  $('#currentPrices').find('.' + nameFruit).text("$ " + (fruit.currentPrice).toFixed(2));
 }
