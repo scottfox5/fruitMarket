@@ -29,6 +29,32 @@ $(function () {
   //Changes the current price every 15 seconds
   setInterval(changePriceAll(), 15000);
 
+
+// buy one share of a fruit
+  $('#buyButtons').on('click','button', function () {
+    var fruitToBeBought = $(this).closest('td').attr('class');
+    console.log(fruitToBeBought);
+    for(var i =0; i < fruitArray.length; i++){
+      if(fruitToBeBought == fruitArray[i].name){
+        buyOne(fruitArray[i])
+      }
+    }
+  });
+
+  // sell one share of a fruit
+    $('#sellButtons').on('click','button', function () {
+      var fruitToBeSold = $(this).closest('td').attr('class');
+      console.log(fruitToBeSold);
+      for(var i =0; i < fruitArray.length; i++){
+        if(fruitToBeSold == fruitArray[i].name){
+          buyOne(fruitArray[i])
+        }
+      }
+    });
+
+
+
+
 });
 
 //Runs changePriceOne on each object in the fruitArray
@@ -55,4 +81,20 @@ function priceFluc() {
     fluc = (Math.random()-0.50);
   }
   return Number(fluc.toFixed(2));
+}
+
+//Adds one fruit to the inventory, while deducting the cost from totalCash. Also adds to totalPurchased and totalSpent
+function buyOne(fruit){
+  totalCash -= fruit.currentPrice;
+  fruit.inv++;
+  fruit.totalBought++;
+  fruit.totalSpent += fruit.currentPrice;
+  //Update Dom Placeholder
+}
+
+//Deducts one fruit from the inventory, whild adding the current price to totalCash
+function sellOne(fruit){
+  totalCash += fruit.currentPrice;
+  fruit.inv--;
+  //Update dom placeholder
 }
