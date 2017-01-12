@@ -37,7 +37,18 @@ h1 {
   color: seagreen;
 }
 
+h2 {
+  /*float: left;*/
+  display: inline;
+}
 
+#topLine {
+  font-size: 2.0em;
+}
+#timer {
+  display: inline;
+  margin-left: 25%;
+}
 #buyButtons button {
   background-color: blanchedalmond;
 }
@@ -54,7 +65,7 @@ h1 {
 }
 #messageLine {
   margin: 0px;
-  padding: 0px;
+  padding: 5px;
   min-height: 2.5em;
 }
 #messages {

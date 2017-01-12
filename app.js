@@ -1,6 +1,7 @@
 //Global Variables
 var totalCash = 100;
 var gameOver = false;
+var timer = 300;
 
 //Fruit Constructor
 function Fruit(name, currentPrice){
@@ -25,6 +26,7 @@ $(function () {
   //Changes the current price every 15 seconds
   setTimeout(endGame, 300000);
   setInterval(changePriceAll, 15000);
+  setInterval(updateTimer, 1000);
 
 // buy one share of a fruit
   $('#buyButtons').on('click','button', function () {
@@ -164,4 +166,12 @@ function endGame () {
   }
   $('button').closest('tr').remove();
   gameOver = true;
+}
+
+function updateTimer(){
+  timer--;
+  $('#timeLeft').text(timer);
+  if(timer < 30){
+    $('#timeLeft').css('color','red').css('font-size', '1.5em');
+  }
 }
