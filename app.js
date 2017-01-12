@@ -30,6 +30,7 @@ $(function () {
   $('#buyButtons').on('click','button', function () {
     var fruitToBeBought = $(this).closest('td').attr('class');
     // console.log(fruitToBeBought);
+        $('*').removeClass('badSell');
     for(var i =0; i < fruitArray.length; i++){
       if(fruitToBeBought == fruitArray[i].name){
         buyOne(fruitArray[i])
@@ -42,12 +43,14 @@ $(function () {
     }else{
       $('h2').css('color', 'black');
     }
+
   });
 
   // sell one share of a fruit
     $('#sellButtons').on('click','button', function () {
       var fruitToBeSold = $(this).closest('td').attr('class');
       // console.log(fruitToBeSold);
+            $('*').removeClass('badSell');
       for(var i =0; i < fruitArray.length; i++){
         if(fruitToBeSold == fruitArray[i].name){
           sellOne(fruitArray[i])
@@ -60,6 +63,7 @@ $(function () {
       }else{
         $('h2').css('color', 'black');
       }
+
     });
 
 

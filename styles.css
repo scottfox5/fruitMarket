@@ -17,6 +17,7 @@ body {
   background-color: linen;
   text-align: center;
   font-family: Arial, sans-serif;
+  /*border: 1px solid black;*/
 }
 
 th {
@@ -36,6 +37,7 @@ h1 {
   color: seagreen;
 }
 
+
 #buyButtons button {
   background-color: blanchedalmond;
 }
@@ -51,10 +53,13 @@ h1 {
 
 }
 #messageLine {
-  min-height: 2em;
+  margin: 0px;
+  padding: 0px;
+  min-height: 2.5em;
 }
 #messages {
-
+  margin: 0px;
+  padding: 0px;
   font-size: 2em;
 }
 
