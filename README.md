@@ -1,4 +1,4 @@
-# Fruit Market Game#
+# Fruit Market Game
 
 ## Authors: Scott Fox, Brian Schorn, Hue Vang, Bill Kremer
 
